@@ -1,12 +1,11 @@
-var breakAndSessionLength = [0,0];
+var breakAndSessionLength = [0, 0];
 
 window.onload = function () {
     var breakMinus = $('#break-minus')[0];
     var breakPlus = $('#break-plus')[0];
     var sessionMinus = $('#session-minus')[0];
     var sessionPlus = $('#session-plus')[0];
-    var timer = $('.timer')[0];
-    console.log(timer);
+    var timerOn = $('.timer')[0];
 
     breakMinus.onclick = function () {
         if (breakAndSessionLength[0] !== 0) {
@@ -16,8 +15,8 @@ window.onload = function () {
     };
 
     breakPlus.onclick = function () {
-            breakAndSessionLength[0] += 1;
-            $('#break').text(breakAndSessionLength[0]);
+        breakAndSessionLength[0] += 1;
+        $('#break').text(breakAndSessionLength[0]);
     };
 
     sessionMinus.onclick = function () {
@@ -34,22 +33,48 @@ window.onload = function () {
         $('#time').text(breakAndSessionLength[1]);
     };
 
-    timer.onclick = function () {
-        console.log(breakAndSessionLength[1]);
-        var x = setInterval();
-        var minutes = breakAndSessionLength[1];
-        minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-        for (var i = 0; i < breakAndSessionLength[1]*60; i++){
-            if (seconds === 0) {
-             seconds = 59;
-             breakAndSessionLength[1] -= 1;
-            } else {
-               $('#time').text(breakAndSessionLength[1] - 1 + ':' + seconds);
-                seconds -= 1;
-                return;
+    timerOn.onclick = function () {
+        var counter = 0;
+        console.log(counter);
+        if (counter === 0) {
+            if (breakAndSessionLength[1] !== 0) {
+                counter += 1;
+                timer([0, breakAndSessionLength[1] - 1, 59], function (h, m, s) {
+                    $('#time').text(m + ':' + s);
+                });
             }
         }
     }
 };
+
+function timer(time, call) {
+    timer.lastCall = call;
+    timer.lastTime = time;
+    timer.timerInterval = setInterval(function () {
+        call(time[0], time[1], time[2]);
+        time[2]--;
+        if (time[0] === 0 && time[1] === 0 && time[2] === 0) {
+            timer.pause();
+            call(0, 0, 0);
+        }
+
+        if (time[2] === 0) {
+            time[2] = 59;
+            time[1]--;
+            if (time[1] === 0) {
+                time[1] = 59;
+                time[0]--
+            }
+        }
+        timer.lastTime = time
+    }, 1000);
+}
+
+// timer.pause = function () {
+//     clearInterval(timer.timerInterval)
+// };
+// timer.start = function () {
+//     timer(timer.lastTime, timer.lastCall);
+// };
+
+
