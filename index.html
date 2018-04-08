@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="./index.js"></script>
+    <link rel="stylesheet" href="./index.css">
+    <title>PomodoroApp</title>
+</head>
+<body>
+<h1>Pomodoro Clock</h1>
+    <div class="header">
+        <div class="session">
+            <div class="breakCtrl">
+                <p>break length</p>
+                <button class="minus" id="break-minus">-</button><span class="time" id="break">0</span>
+                <button class="plus" id="break-plus">+</button>
+            </div>
+            <div class="sessionCtrl">
+                <p>session length</p>
+                <button class="minus" id="session-minus">-</button><span class="time" id="session">0</span>
+                <button class="plus" id="session-plus">+</button>
+            </div>
+        </div>
+    </div>
+<div class="section">
+        <div class="timer">
+            <p class="title">Session</p>
+            <p id="time">time</p><span class="fill"></span>
+        </div>
+    <div>
+</body>
+</html>
