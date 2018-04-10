@@ -1,4 +1,5 @@
 var breakAndSessionLength = [0, 0];
+var counter = 0;
 
 window.onload = function () {
     var breakMinus = $('#break-minus')[0];
@@ -34,11 +35,10 @@ window.onload = function () {
     };
 
     timerOn.onclick = function () {
-        var counter = 0;
+        counter++;
         console.log(counter);
-        if (counter === 0) {
+        if (counter === 1) {
             if (breakAndSessionLength[1] !== 0) {
-                counter += 1;
                 timer([0, breakAndSessionLength[1] - 1, 59], function (h, m, s) {
                     $('#time').text(m + ':' + s);
                 });
@@ -66,7 +66,7 @@ function timer(time, call) {
                 time[0]--
             }
         }
-        timer.lastTime = time
+        timer.lastTime = time;
     }, 1000);
 }
 
